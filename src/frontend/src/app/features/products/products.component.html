@@ -1,0 +1,63 @@
+<!-- SEARCH BAR -->
+<div class="search-bar-container">
+    <app-search-bar (newQueryEvent)="handleQueryEvent($event)"></app-search-bar>
+</div>
+
+<!-- LOADING SPINNER -->
+<div *ngIf="loadingStatus$ | async">
+    <mat-spinner></mat-spinner>
+</div>
+
+<!-- PRODUCTS -->
+<div *ngIf="(products$ | async) as products" style="height: 100%;">
+    <div *ngIf="!(loadingStatus$ | async)" class="products-container">
+        <!-- SEARCHED FOR -->
+        <div *ngIf="query$ | async as q" class="result-info">
+            Searched for <i>'{{q}}'</i> ({{length}} items found)
+        </div>
+        <!-- PRODUCTS -->
+        <mat-card  *ngFor="let product of products" class="card">
+            <!-- HEADER -->
+            <mat-card-header (click)="selectProduct(product.id)">
+                <img mat-card-image style="width: 100%;" [src]="product.image">
+            </mat-card-header>
+            <!-- CONTENT -->
+            <mat-card-content (click)="selectProduct(product.id)">
+                <mat-card-title>{{ product.name }}</mat-card-title>
+                <mat-card-subtitle>{{ (productCategoryService.getProductCategory(product.categoryId) | async)?.name || "" }}</mat-card-subtitle>
+                <p> {{ product.shortDescription.substr(0, 25) }} ... </p>
+            </mat-card-content>
+            <!-- ACTIONS -->
+            <mat-card-actions>
+                <div *ngIf="product.quantity >= 1; then inStock else outStock"></div>
+                <ng-template #inStock>
+                    <span class="price">
+                        <h3> {{ product.price | currency:'EUR' }} </h3>
+                    </span>
+                </ng-template>
+                <ng-template #outStock>
+                    <span class="text-danger">
+                        <h4>Out of Stock</h4>
+                    </span>
+                </ng-template>
+                <!-- ADD TO CART -->
+                <button mat-flat-button color="primary" [disabled]="product.quantity < 1" (click)="addProductToCart(product.id)">
+                    Add
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <!--PAGINATOR -->
+    <mat-paginator
+    *ngIf="!(loadingStatus$ | async) && this.length > 0"
+    (page)="handlePageEvent($event)"
+    showFirstLastButtons="true"
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageIndex"
+    >
+    </mat-paginator>
+
+</div>
+

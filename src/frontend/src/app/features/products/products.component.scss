@@ -1,0 +1,60 @@
+mat-card {
+    width: 300px;
+    margin: 10px;
+}
+
+mat-card-header {
+    padding: 30px;
+    background-color: white;
+}
+
+mat-card-actions {
+    margin: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+mat-card-content,
+mat-card-header {
+    cursor: pointer;
+}
+
+
+mat-paginator {
+    margin-top: 50px;
+}
+
+mat-spinner {
+    margin: auto;
+    margin-top: 100px;
+}
+
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.price::first-letter {
+    font-size: small;
+    margin-right: 2px;
+}
+
+.text-danger {
+    color: rgb(170, 64, 64);
+}
+
+.search-bar-container {
+    padding: 0 15%;
+    padding-top: 20px;
+}
+
+.result-info {
+    width: 70%;
+    margin: 0 15%;
+    margin-bottom: 40px;
+    font-weight: 100;
+    font-size: 18px;
+}

@@ -1,0 +1,50 @@
+<mat-toolbar color="primary" class="mat-elevation-z8 position-fixed" style="width: 100%;">
+    <!-- BRAND -->
+    <mat-icon fontIcon="local_mall"></mat-icon>
+    <span>{{ brandName }}</span>
+
+    <!-- NAV -->
+    <nav>
+        <a mat-button routerLink="/home">Home</a>
+        <a mat-button routerLink="/products">Products</a>
+        <a mat-button routerLink="/about">About</a>
+    </nav>
+
+    <span class="spacer"></span>
+
+    <!-- !isLogged: AUTHENTICATE -->
+    <div class="auth-info-container">
+      <a *appIsLogged="false" mat-raised-button routerLink="/authenticate" routerLinkActive="router-link-active" color="accent">Authenticate</a>
+    </div>
+
+    <!-- isLogged: PROFILE MENU -->
+    <div class="auth-info-container">
+      <div *appIsLogged="true" class="container">
+        <small>{{((currentUser$ | async)?.name | titlecase) || "-"}} {{((currentUser$ | async)?.surname | titlecase) || "-"}}</small>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/profile">
+            <mat-icon>person</mat-icon>
+            <span>Profile</span>
+          </button>
+          <button mat-menu-item routerLink="/settings">
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon color="warn">logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <!-- CART -->
+    <div class="cart-info-container">
+      <button mat-raised-button class="small-button"  [matBadge]="(this.cartService.cart$ | async)?.quantity" matBadgePosition="below after" matBadgeColor="accent" (click)="this.cartService.openCart()">
+        <i class="material-icons material-icon">shopping_cart</i>
+      </button>
+    </div>
+</mat-toolbar>

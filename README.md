@@ -1,5 +1,5 @@
 # Fullstack Ecommerce
-
+[in progress...]  
 This repository serves as a personal learning playground for exploring Angular (with Spring Boot + MySql).
 
 ## Overview
@@ -49,8 +49,8 @@ This repository serves as a personal learning playground for exploring Angular (
 <pre><code> $ git clone https://github.com/stefanoandroni/fullstack-ecommerce  </code></pre>
 - Install the project dependencies
 <pre><code> $ npm install </code></pre>
-- Start the development server
 #### Run
+- Start the development server
 <pre><code> $ ng serve </code></pre>
 - Open your browser and navigate to http://localhost:4200/
 
